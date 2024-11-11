@@ -16,12 +16,10 @@
       CONFIG_DIR = ./devnet;
       DEVNET_DIR = "./.devnet";
       CARDANO_NODE_SOCKET_PATH = "${DEVNET_DIR}/node.socket";
-      CARDANO_NODE_NETWORK_ID = 42;
       cardano-node' = inputs.cardano-node.packages.${system}.cardano-node;
-      cardano-cli' = inputs.cardano-node.packages.${system}.cardano-cli;
-      start-devnet = pkgs.writeShellApplication
+      cardano-devnet = pkgs.writeShellApplication
         {
-          name = "start-devnet";
+          name = "cardano-devnet";
           runtimeInputs = [ cardano-node' ];
           text = ''
             export CARDANO_NODE_SOCKET_PATH=${CARDANO_NODE_SOCKET_PATH}
@@ -69,16 +67,7 @@
 
     in
     {
-      devShells.default = pkgs.mkShell
-        {
-          inherit CARDANO_NODE_SOCKET_PATH CARDANO_NODE_NETWORK_ID;
-
-          buildInputs = [
-            start-devnet
-            cardano-cli'
-          ];
-        };
-      packages.default = start-devnet;
+      packages.cardano-devnet = cardano-devnet;
     };
 }
 
