@@ -4,7 +4,7 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.follows = "cardano-node/nixpkgs";
-    cardano-node.url = "github:IntersectMBO/cardano-node?ref=9.1.0";
+    cardano-node.url = "github:IntersectMBO/cardano-node?ref=10.1.2";
   };
 
   outputs = inputs@{ flake-parts, ... }: {
