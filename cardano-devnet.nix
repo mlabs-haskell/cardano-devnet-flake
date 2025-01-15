@@ -20,7 +20,7 @@
       cardano-devnet = pkgs.writeShellApplication
         {
           name = "cardano-devnet";
-          runtimeInputs = [ cardano-node' ];
+          runtimeInputs = [ cardano-node' pkgs.jq ];
           text = ''
             export CARDANO_NODE_SOCKET_PATH=${CARDANO_NODE_SOCKET_PATH}
 
