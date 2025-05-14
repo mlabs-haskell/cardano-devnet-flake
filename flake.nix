@@ -27,8 +27,11 @@
       perSystem =
         { pkgs, config, ... }:
         {
-          cardano-devnet.initialFunds = {
-            "609783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
+          cardano-devnet = {
+            initialFunds = {
+              "609783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
+            };
+            networkMagic = 2;
           };
 
           devShells.default = pkgs.mkShell {
