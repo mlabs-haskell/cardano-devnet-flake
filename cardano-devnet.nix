@@ -11,8 +11,16 @@
           };
           description = "Public key - lovelace pair, determining the initial funds.";
         };
+
+        networkMagic = lib.mkOption {
+          type = lib.types.ints.unsigned;
+          default = 42;
+          example = 42;
+          description = "Cardano network magic id";
+        };
+
         devnetDirectory = lib.mkOption {
-          type = lib.types.nullOr lib.types.str;
+          type = lib.types.str;
           default = "./.devnet";
           example = "./.devnet";
           description = "Path to directory where cardano-node will temporarily store its data.";
@@ -55,14 +63,16 @@
           cp -af ${CONFIG_DIR}/vrf.skey "${DEVNET_DIR}"
           cp -af ${CONFIG_DIR}/kes.skey "${DEVNET_DIR}"
 
-          jq '.startTime |= $start_time' \
+          jq '.startTime |= $start_time | .protocolConsts.protocolMagic |= $network_magic' \
             --argjson start_time "$(date +%s)" \
+            --argjson network_magic ${builtins.toJSON config.cardano-devnet.networkMagic} \
             < ${CONFIG_DIR}/genesis-byron.json \
             > "${DEVNET_DIR}/genesis-byron.json"
 
-          jq '.systemStart |= $start_time | .initialFunds |= $funds' \
+          jq '.systemStart |= $start_time | .initialFunds |= $funds | .networkMagic |= $network_magic' \
             --arg start_time "$(date -u +%FT%TZ)" \
             --argjson funds '${builtins.toJSON config.cardano-devnet.initialFunds}' \
+            --argjson network_magic ${builtins.toJSON config.cardano-devnet.networkMagic} \
             < ${CONFIG_DIR}/genesis-shelley.json\
             > "${DEVNET_DIR}/genesis-shelley.json"
 
