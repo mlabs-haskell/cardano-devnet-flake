@@ -10,12 +10,21 @@
       cardano-devnet = {
         package = lib.mkPackageOption pkgs "cardano-node" { };
 
+        cardano-cli = lib.mkPackageOption pkgs "cardano-cli" { };
+
+        initialFundsKeyType = lib.mkOption {
+          type = lib.types.string;
+          default = "verification-key-hash";
+          example = "bech32-binary";
+          description = "Flag to define the keys used in `initialFunds` option (bech32-binary | verification-key-file | verification-key-hash)";
+        };
+
         initialFunds = lib.mkOption {
           type = lib.types.attrsOf lib.types.ints.unsigned;
           example = {
-            "609783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
+            "9783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
           };
-          description = "Public key - lovelace pair, determining the initial funds.";
+          description = "Wallet public key - lovelace pair, determining the initial funds. Use `initialFundsKeyType` define the key type you're using.";
         };
 
         networkMagic = lib.mkOption {
@@ -48,8 +57,10 @@
           devnetDirectory
           networkMagic
           initialFunds
+          initialFundsKeyType
           ;
         cardano-node = config.cardano-devnet.package;
+        cardano-cli = config.cardano-devnet.cardano-cli;
       };
 
     in
