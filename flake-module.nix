@@ -34,11 +34,10 @@
           description = "Cardano network magic id";
         };
 
-        devnetDirectory = lib.mkOption {
+        dataDir = lib.mkOption {
           type = lib.types.str;
-          default = "./.devnet";
-          example = "./.devnet";
-          description = "Path to directory where cardano-node will temporarily store its data.";
+          default = "./data/cardano-devnet";
+          description = "The directory where all data for `cardano-devnet.<name>` is stored";
         };
       };
     };
@@ -54,7 +53,7 @@
       cardano-devnet = import ./devnet.nix {
         inherit pkgs;
         inherit (config.cardano-devnet)
-          devnetDirectory
+          dataDir
           networkMagic
           initialFunds
           initialFundsKeyType

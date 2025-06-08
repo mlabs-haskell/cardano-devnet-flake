@@ -81,12 +81,10 @@ let
           example = 42;
           description = "Cardano network magic id";
         };
-
-        devnetDirectory = lib.mkOption {
+        dataDir = lib.mkOption {
           type = lib.types.str;
-          default = "./.devnet";
-          example = "./.devnet";
-          description = "Path to directory where cardano-ode will temporarily store its data.";
+          default = "./data/cardano-devnet";
+          description = "The directory where all data for `cardano-devnet.<name>` is stored";
         };
       };
 
@@ -95,7 +93,7 @@ let
           cardano-devnet = import ./devnet.nix {
             inherit pkgs;
             inherit (config)
-              devnetDirectory
+              dataDir
               networkMagic
               initialFunds
               initialFundsKeyType
@@ -110,7 +108,7 @@ let
           readiness_probe = {
             exec.command = ''
               ${config.cardano-cli}/bin/cardano-cli query tip \
-              --socket-path ${config.devnetDirectory}/node.socket \
+              --socket-path ${config.dataDir}/node.socket \
               --testnet-magic ${builtins.toJSON config.networkMagic}'';
             initial_delay_seconds = 1;
             period_seconds = 1;
