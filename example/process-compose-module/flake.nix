@@ -43,9 +43,8 @@
             ];
 
             services.cardano-devnet."devnet" = {
+              inherit (inputs.cardano-node.packages.${system}) cardano-node cardano-cli;
               enable = true;
-              package = inputs.cardano-node.packages.${system}.cardano-node;
-              cardano-cli = inputs.cardano-node.packages.${system}.cardano-cli;
               initialFundsKeyType = "verification-key-file";
               initialFunds = {
                 "example/process-compose-module/wallets/dev.vk" = 900000000000;

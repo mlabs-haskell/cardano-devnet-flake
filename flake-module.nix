@@ -8,7 +8,7 @@
   options.perSystem = inputs.flake-parts.lib.mkPerSystemOption (_: {
     options = {
       cardano-devnet = {
-        package = lib.mkPackageOption pkgs "cardano-node" { };
+        cardano-node = lib.mkPackageOption pkgs "cardano-node" { };
 
         cardano-cli = lib.mkPackageOption pkgs "cardano-cli" { };
 
@@ -58,9 +58,9 @@
           networkMagic
           initialFunds
           initialFundsKeyType
+          cardano-node
+          cardano-cli
           ;
-        cardano-node = config.cardano-devnet.package;
-        cardano-cli = config.cardano-devnet.cardano-cli;
       };
 
     in

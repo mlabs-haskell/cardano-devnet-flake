@@ -32,8 +32,7 @@
         }:
         {
           cardano-devnet = {
-            package = inputs.cardano-node.packages.${system}.cardano-node;
-            cardano-cli = inputs.cardano-node.packages.${system}.cardano-cli;
+            inherit (inputs.cardano-node.packages.${system}) cardano-node cardano-cli;
             initialFunds = {
               "9783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
             };

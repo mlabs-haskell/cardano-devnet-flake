@@ -57,7 +57,7 @@ let
     { config, name, ... }:
     {
       options = {
-        package = lib.mkPackageOption pkgs "cardano-node" { };
+        cardano-node = lib.mkPackageOption pkgs "cardano-node" { };
 
         cardano-cli = lib.mkPackageOption pkgs "cardano-cli" { };
 
@@ -99,9 +99,9 @@ let
               networkMagic
               initialFunds
               initialFundsKeyType
+              cardano-node
+              cardano-cli
               ;
-            cardano-node = config.package;
-            cardano-cli = config.cardano-cli;
           };
 
         in
