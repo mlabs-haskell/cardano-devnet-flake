@@ -5,7 +5,7 @@
     cardano-devnet.url = "path:../..";
 
     flake-parts.follows = "cardano-devnet/flake-parts";
-    cardano-node.url = "github:IntersectMBO/cardano-node/10.1.4";
+    cardano-node.url = "github:IntersectMBO/cardano-node/10.4.1";
     nixpkgs.follows = "cardano-node/nixpkgs";
   };
 
