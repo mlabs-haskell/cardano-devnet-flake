@@ -23,8 +23,75 @@
     networkMagic = lib.mkOption {
       type = lib.types.ints.unsigned;
       default = 42;
-      example = 42;
-      description = "Cardano network magic id";
+      example = 2;
+      description = "Cardano network magic id (also known as testnet magic).";
+    };
+
+    networkId = lib.mkOption {
+      type = lib.types.str;
+      default = "Testnet";
+      example = "Mainnet";
+      description = "Network discriminant which can be Mainnet or Testnet";
+    };
+
+    epochLength = lib.mkOption {
+      type = lib.types.ints.unsigned;
+      default = 5;
+      example = 100;
+      description = "Length of an epoch in slots";
+    };
+
+    slotLength = lib.mkOption {
+      type = lib.types.float;
+      default = 0.1;
+      example = 1;
+      description = "Slot duration in seconds";
+    };
+
+    maxTxSize = lib.mkOption {
+      type = lib.types.ints.unsigned;
+      default = 16384;
+      example = 20000;
+      description = "Transaction size in bytes";
+    };
+
+    maxBlockExUnits = lib.mkOption {
+      type = lib.types.attrsOf lib.types.ints.unsigned;
+      default = {
+        exUnitsMem = 62000000;
+        exUnitsSteps = 40000000000;
+      };
+      example = {
+        exUnitsMem = 62000000;
+        exUnitsSteps = 40000000000;
+      };
+      description = "Maximum execution budget for a block";
+    };
+
+    maxTxExUnits = lib.mkOption {
+      type = lib.types.attrsOf lib.types.ints.unsigned;
+      default = {
+        exUnitsMem = 14000000;
+        exUnitsSteps = 10000000000;
+      };
+      example = {
+        exUnitsMem = 14000000;
+        exUnitsSteps = 10000000000;
+      };
+      description = "Maximum execution budget for a transaction";
+    };
+
+    protocolVersion = lib.mkOption {
+      type = lib.types.attrsOf lib.types.ints.unsigned;
+      default = {
+        major = 10;
+        minor = 0;
+      };
+      example = {
+        major = 6;
+        minor = 0;
+      };
+      description = "Protocol major and minor version";
     };
 
     dataDir = lib.mkOption {

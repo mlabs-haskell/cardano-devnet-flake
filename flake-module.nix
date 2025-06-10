@@ -21,10 +21,17 @@
         inherit (config.cardano-devnet)
           dataDir
           networkMagic
+          networkId
           initialFunds
           initialFundsKeyType
           cardano-node
           cardano-cli
+          epochLength
+          slotLength
+          maxTxSize
+          maxBlockExUnits
+          maxTxExUnits
+          protocolVersion
           ;
       };
 

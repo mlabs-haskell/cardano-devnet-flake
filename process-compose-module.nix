@@ -65,10 +65,17 @@ let
             inherit (config)
               dataDir
               networkMagic
+              networkId
               initialFunds
               initialFundsKeyType
               cardano-node
               cardano-cli
+              epochLength
+              slotLength
+              maxTxSize
+              maxBlockExUnits
+              maxTxExUnits
+              protocolVersion
               ;
           };
 
@@ -79,7 +86,7 @@ let
             exec.command = ''
               ${config.cardano-cli}/bin/cardano-cli query tip \
               --socket-path ${config.dataDir}/node.socket \
-              --testnet-magic ${builtins.toJSON config.networkMagic}'';
+              --testnet-magic ${builtins.toString config.networkMagic}'';
             initial_delay_seconds = 1;
             period_seconds = 1;
           };
