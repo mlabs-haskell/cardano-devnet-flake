@@ -6,7 +6,7 @@
 }:
 {
   options.perSystem = inputs.flake-parts.lib.mkPerSystemOption (_: {
-    options = import ./options.nix { inherit lib pkgs; };
+    inherit (import ./options.nix { inherit lib pkgs; }) options;
   });
 
   config.perSystem =
