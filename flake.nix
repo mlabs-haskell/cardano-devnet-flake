@@ -4,6 +4,8 @@
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "github:NixOS/nixpkgs";
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
+    hci-effects.url = "github:hercules-ci/hercules-ci-effects";
   };
 
   outputs =
@@ -16,34 +18,16 @@
         "x86_64-darwin"
       ];
 
+      imports = [
+        ./hercules-ci.nix
+        ./documentation.nix
+        ./pre-commit.nix
+      ];
+
       flake = {
         flakeModule = ./flake-module.nix;
         processComposeModule = ./process-compose-module.nix;
       };
 
-      perSystem =
-        { pkgs, lib, ... }:
-        {
-          packages = {
-            documentation =
-              let
-                eval = lib.evalModules { modules = [ ./options.nix ]; };
-                opts = pkgs.nixosOptionsDoc { options = eval.options.cardano-devnet; };
-              in
-              pkgs.stdenv.mkDerivation {
-                name = "docs";
-                src = ./docs;
-                nativeBuildInputs = [ pkgs.mkdocs ];
-                buildPhase = ''
-                  cat ${opts.optionsCommonMark} >> "./src/options.md"
-                  mkdocs build
-                '';
-
-                installPhase = ''
-                  mv site $out
-                '';
-              };
-          };
-        };
     };
 }
