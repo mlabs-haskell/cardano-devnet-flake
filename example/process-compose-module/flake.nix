@@ -56,8 +56,8 @@
               ogmios = {
                 command = ''
                   ${inputs'.ogmios.packages."ogmios:exe:ogmios"}/bin/ogmios \
-                    --node-socket .devnet/node.socket \
-                    --node-config .devnet/config.json
+                    --node-socket data/cardano-devnet/node.socket \
+                    --node-config data/cardano-devnet/config.json
                 '';
                 readiness_probe = {
                   http_get = {
