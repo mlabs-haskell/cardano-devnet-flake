@@ -10,6 +10,6 @@
   perSystem =
     { self', ... }:
     {
-      hercules-ci.github-pages.settings.contents = self'.packages.documentaton;
+      hercules-ci.github-pages.settings.contents = self'.packages.documentation;
     };
 }
