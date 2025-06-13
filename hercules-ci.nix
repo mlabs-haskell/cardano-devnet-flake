@@ -11,5 +11,8 @@
     { self', ... }:
     {
       hercules-ci.github-pages.settings.contents = self'.packages.documentation;
+
     };
+
+  herculesCI.ciSystems = [ "x86_64-linux" ];
 }
