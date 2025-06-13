@@ -6,41 +6,7 @@
 }:
 {
   options.perSystem = inputs.flake-parts.lib.mkPerSystemOption (_: {
-    options = {
-      cardano-devnet = {
-        cardano-node = lib.mkPackageOption pkgs "cardano-node" { };
-
-        cardano-cli = lib.mkPackageOption pkgs "cardano-cli" { };
-
-        initialFundsKeyType = lib.mkOption {
-          type = lib.types.string;
-          default = "verification-key-hash";
-          example = "bech32-binary";
-          description = "Flag to define the keys used in `initialFunds` option (bech32-binary | verification-key-file | verification-key-hash)";
-        };
-
-        initialFunds = lib.mkOption {
-          type = lib.types.attrsOf lib.types.ints.unsigned;
-          example = {
-            "9783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
-          };
-          description = "Wallet public key - lovelace pair, determining the initial funds. Use `initialFundsKeyType` define the key type you're using.";
-        };
-
-        networkMagic = lib.mkOption {
-          type = lib.types.ints.unsigned;
-          default = 42;
-          example = 42;
-          description = "Cardano network magic id";
-        };
-
-        dataDir = lib.mkOption {
-          type = lib.types.str;
-          default = "./data/cardano-devnet";
-          description = "The directory where all data for `cardano-devnet.<name>` is stored";
-        };
-      };
-    };
+    options = import ./options.nix { inherit lib pkgs; };
   });
 
   config.perSystem =
@@ -55,10 +21,17 @@
         inherit (config.cardano-devnet)
           dataDir
           networkMagic
+          networkId
           initialFunds
           initialFundsKeyType
           cardano-node
           cardano-cli
+          epochLength
+          slotLength
+          maxTxSize
+          maxBlockExUnits
+          maxTxExUnits
+          protocolVersion
           ;
       };
 

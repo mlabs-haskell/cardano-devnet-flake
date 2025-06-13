@@ -24,7 +24,7 @@
 
   "minSeverity": "Info",
   "defaultBackends": ["KatipBK"],
-  "defaultScribes": [[ "StdoutSK", "stdout" ]],
+  "defaultScribes": [["StdoutSK", "stdout"]],
   "setupBackends": ["KatipBK"],
   "setupScribes": [
     {
@@ -69,8 +69,8 @@
 
   "options": {
     "mapBackends": {
-      "cardano.node.metrics": [ "EKGViewBK" ],
-      "cardano.node.resources": [ "EKGViewBK" ]
+      "cardano.node.metrics": ["EKGViewBK"],
+      "cardano.node.resources": ["EKGViewBK"]
     },
     "mapSubtrace": {
       "cardano.node.metrics": { "subtrace": "Neutral" }

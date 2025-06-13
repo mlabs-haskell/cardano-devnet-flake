@@ -37,6 +37,7 @@
               "9783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
             };
             networkMagic = 2;
+            slotLength = 1.0;
           };
 
           devShells.default = pkgs.mkShell {
