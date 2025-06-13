@@ -48,7 +48,7 @@ After this, we can setup a process-compose. This is where we can import the
 cardano-devnet process compose module, and add the devnet configuration under
 `services.cardano-devnet`.
 
-See the cardano-devnet options [here](./options).
+See the [cardano-devnet options](./options) page for other configuration options.
 
 ```nix
 process-compose."process-compose-example" = {
@@ -76,4 +76,4 @@ devShells.default = pkgs.mkShell {
 };
 ```
 
-See an example setup [here](https://github.com/mlabs-haskell/cardano-devnet-flake/blob/main/example/process-compose-module/flake.nix).
+See an example setup at [./example/process-compose-module/flake.nix](https://github.com/mlabs-haskell/cardano-devnet-flake/blob/main/example/process-compose-module/flake.nix).

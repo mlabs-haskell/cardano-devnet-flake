@@ -33,7 +33,7 @@ flake-parts.lib.mkFlake { inherit inputs; } {
 ```
 
 Finally in the `perSystem`, we will add our cardano devnet configuration. See
-the cardano-devnet options [here](./options).
+the [cardano-devnet options](./options) page for other configuration options.
 
 With this done, the devnet will be exposed under `config.packages.cardano-devnet`,
 but it makes sense to add this to the devShell so we can execute it from the nix
@@ -66,4 +66,4 @@ perSystem =
 Now we can run `nix develop .` and inside the dev shell, and execute
 `cardano-devnet` to start up the network.
 
-See an example setup [here](https://github.com/mlabs-haskell/cardano-devnet-flake/blob/main/example/flake-module/flake.nix).
+See an example setup at [./example/flake-module/flake.nix](https://github.com/mlabs-haskell/cardano-devnet-flake/blob/main/example/flake-module/flake.nix).
