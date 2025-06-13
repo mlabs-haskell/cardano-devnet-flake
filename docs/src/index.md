@@ -16,7 +16,8 @@ Benefits compared to other similar solutions:
 - **CI compatible**: use the same configuration on the CI to run your tests on a
   real network
 - **fast**: due to its simplicity, spinning up a test network is really fast.
-  If the slot length is configured to a small value, transactions will also finish quickly
+  If the slot length is configured to a small value, transactions will also
+  finish quickly
 - **no docker required**: the node runs as a local executable, which means that
   you can easily connect to its unix socket from other utilities (this has been
   a problem on MacOS with docker-based solutions)
