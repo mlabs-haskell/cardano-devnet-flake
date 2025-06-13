@@ -24,7 +24,7 @@
 
   "minSeverity": "Info",
   "defaultBackends": ["KatipBK"],
-  "defaultScribes": [[ "StdoutSK", "stdout" ]],
+  "defaultScribes": [["StdoutSK", "stdout"]],
   "setupBackends": ["KatipBK"],
   "setupScribes": [
     {
@@ -62,14 +62,15 @@
   "TraceLocalTxSubmissionServer": true,
   "TraceMempool": true,
   "TraceMux": false,
+  "TraceOptions": {},
   "TraceTxInbound": false,
   "TraceTxOutbound": false,
   "TraceTxSubmissionProtocol": false,
 
   "options": {
     "mapBackends": {
-      "cardano.node.metrics": [ "EKGViewBK" ],
-      "cardano.node.resources": [ "EKGViewBK" ]
+      "cardano.node.metrics": ["EKGViewBK"],
+      "cardano.node.resources": ["EKGViewBK"]
     },
     "mapSubtrace": {
       "cardano.node.metrics": { "subtrace": "Neutral" }

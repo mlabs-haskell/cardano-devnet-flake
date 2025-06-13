@@ -3,16 +3,14 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
-    nixpkgs.follows = "cardano-node/nixpkgs";
-    cardano-node.url = "github:IntersectMBO/cardano-node/10.1.4";
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    git-hooks-nix.url = "github:cachix/git-hooks.nix";
+    hci-effects.url = "github:hercules-ci/hercules-ci-effects";
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
-    {
-      flakeModule = ./cardano-devnet.nix;
-    }
-    // flake-parts.lib.mkFlake { inherit inputs; } {
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -20,27 +18,16 @@
         "x86_64-darwin"
       ];
 
-      imports = [ ./cardano-devnet.nix ];
+      imports = [
+        ./hercules-ci.nix
+        ./documentation.nix
+        ./pre-commit.nix
+      ];
 
-      debug = true;
+      flake = {
+        flakeModule = ./flake-module.nix;
+        processComposeModule = ./process-compose-module.nix;
+      };
 
-      perSystem =
-        { pkgs, config, ... }:
-        {
-          cardano-devnet = {
-            initialFunds = {
-              "609783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
-            };
-            networkMagic = 2;
-          };
-
-          devShells.default = pkgs.mkShell {
-
-            buildInputs = [
-              config.packages.cardano-devnet
-            ];
-          };
-
-        };
     };
 }
