@@ -33,7 +33,8 @@ flake-parts.lib.mkFlake { inherit inputs; } {
 ```
 
 Finally in the `perSystem`, we will add our cardano devnet configuration. See
-the [cardano-devnet options](./options) page for other configuration options.
+the [cardano-devnet options](/cardano-devnet-flake/options) page for other
+configuration options.
 
 With this done, the devnet will be exposed under `config.packages.cardano-devnet`,
 but it makes sense to add this to the devShell so we can execute it from the nix
