@@ -3,10 +3,10 @@
 
   inputs = {
     cardano-devnet.url = "path:../..";
+    flake-parts.follows = "cardano-devnet/flake-parts";
 
     process-compose.url = "github:Platonic-Systems/process-compose-flake";
 
-    flake-parts.follows = "cardano-devnet/flake-parts";
     cardano-node.url = "github:IntersectMBO/cardano-node/10.1.4";
     nixpkgs.follows = "cardano-node/nixpkgs";
 
@@ -74,7 +74,6 @@
           };
 
           devShells.default = pkgs.mkShell {
-
             nativeBuildInputs = [
               self'.packages.process-compose-example
             ];

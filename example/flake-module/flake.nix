@@ -3,8 +3,8 @@
 
   inputs = {
     cardano-devnet.url = "path:../..";
-
     flake-parts.follows = "cardano-devnet/flake-parts";
+
     cardano-node.url = "github:IntersectMBO/cardano-node/10.4.1";
     nixpkgs.follows = "cardano-node/nixpkgs";
   };
@@ -19,20 +19,20 @@
         "x86_64-darwin"
       ];
 
-      imports = [ inputs.cardano-devnet.flakeModule ];
-
-      debug = true;
+      imports = [
+        inputs.cardano-devnet.flakeModule
+      ];
 
       perSystem =
         {
           pkgs,
           config,
-          system,
+          inputs',
           ...
         }:
         {
           cardano-devnet = {
-            inherit (inputs.cardano-node.packages.${system}) cardano-node cardano-cli;
+            inherit (inputs'.cardano-node.packages) cardano-node cardano-cli;
             initialFunds = {
               "9783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
             };
@@ -46,6 +46,7 @@
               config.packages.cardano-devnet
             ];
           };
+
         };
     };
 }

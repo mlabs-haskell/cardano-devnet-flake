@@ -56,7 +56,7 @@ let
   mod =
     { config, name, ... }:
     {
-      options = (import ./options.nix { inherit lib pkgs; }).cardano-devnet;
+      options = (import ./options.nix { inherit lib pkgs; }).options.cardano-devnet;
 
       config.outputs.settings.processes."${name}" =
         let
