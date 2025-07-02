@@ -7,6 +7,7 @@
   networkId,
   initialFunds,
   initialFundsKeyType,
+  maxLovelaceSupply,
   epochLength,
   slotLength,
   maxTxSize,
@@ -78,9 +79,10 @@ pkgs.writeShellApplication {
       < ${CONFIG_DIR}/genesis-byron.json \
       > "${dataDir}/genesis-byron.json"
 
-    jq '.systemStart |= $start_time | .initialFunds |= $funds | .networkMagic |= $network_magic | .networkId |= $network_id | .slotLength |= $slot_length | .epochLength |= $epoch_length | .protocolParams.maxTxSize |= $max_tx_size | .protocolParams.protocolVersion |= $protocol_version' \
+    jq '.systemStart |= $start_time | .initialFunds |= $funds | .maxLovelaceSupply |= $max_lovelace_supply | .networkMagic |= $network_magic | .networkId |= $network_id | .slotLength |= $slot_length | .epochLength |= $epoch_length | .protocolParams.maxTxSize |= $max_tx_size | .protocolParams.protocolVersion |= $protocol_version' \
       --arg start_time "$(date -u +%FT%TZ)" \
       --argjson funds '${builtins.toJSON initialFunds'}' \
+      --argjson max_lovelace_supply ${builtins.toString maxLovelaceSupply} \
       --argjson network_magic ${builtins.toString networkMagic} \
       --arg network_id ${networkId} \
       --argjson slot_length ${builtins.toString slotLength} \

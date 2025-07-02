@@ -18,7 +18,13 @@
         example = {
           "9783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
         };
-        description = "Wallet public key - lovelace pair, determining the initial funds. Use `initialFundsKeyType` define the key type you're using.";
+        description = "Wallet public key - lovelace pair, determining the initial funds. Use `initialFundsKeyType` define the key type you're using and maxLovelaceSupply to increase the distributeable amount if needed.";
+      };
+
+      maxLovelaceSupply = lib.mkOption {
+        type = lib.types.ints.unsigned;
+        default = 45000000000000000;
+        description = "Maximum lovelace amount that can ever exist on the network.";
       };
 
       networkMagic = lib.mkOption {

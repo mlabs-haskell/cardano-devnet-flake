@@ -68,6 +68,7 @@ let
               networkId
               initialFunds
               initialFundsKeyType
+              maxLovelaceSupply
               cardano-node
               cardano-cli
               epochLength
