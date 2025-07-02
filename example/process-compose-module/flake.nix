@@ -47,7 +47,7 @@
               enable = true;
               initialFundsKeyType = "verification-key-file";
               initialFunds = {
-                "example/process-compose-module/wallets/dev.vk" = 900000000000;
+                "example/process-compose-module/wallets/dev.vk" = "18446744073709551615";
               };
               networkMagic = 2;
             };
