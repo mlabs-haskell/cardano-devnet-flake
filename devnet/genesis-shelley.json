@@ -6,7 +6,7 @@
   "genDelegs": {},
   "initialFunds": {},
   "maxKESEvolutions": 60,
-  "maxLovelaceSupply": 2000000000000,
+  "maxLovelaceSupply": 0,
   "networkId": "",
   "networkMagic": 0,
   "protocolParams": {
