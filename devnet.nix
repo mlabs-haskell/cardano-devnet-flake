@@ -15,21 +15,18 @@
   protocolVersion,
 }:
 let
-  inherit (pkgs) lib;
-
   CONFIG_DIR = ./devnet;
   CARDANO_NODE_SOCKET_PATH = "${dataDir}/node.socket";
-
-  # Initial funds as bech32-binary - lovelace pairs
-  initialFundsResolved =
+  #
+  initialFunds' =
     if initialFundsKeyType == "bech32-binary" then
       initialFunds
     else if initialFundsKeyType == "verification-key-hash" then
-      lib.mapAttrs' (
-        pkh: lovelaces: lib.nameValuePair (verKeyHashToBech32Binary pkh) lovelaces
+      pkgs.lib.mapAttrs' (
+        pkh: lovelaces: pkgs.lib.nameValuePair (verKeyHashToBech32Binary pkh) lovelaces
       ) initialFunds
     else if initialFundsKeyType == "verification-key-file" then
-      lib.mapAttrs' (pkh: lovelaces: {
+      pkgs.lib.mapAttrs' (pkh: lovelaces: {
         name = verKeyHashToBech32Binary (fileToVerKeyHash pkh);
         value = lovelaces;
       }) initialFunds
@@ -40,7 +37,7 @@ let
 
   fileToVerKeyHash =
     file:
-    lib.removeSuffix "\n" (
+    pkgs.lib.removeSuffix "\n" (
       builtins.readFile (
         pkgs.runCommand "resolve-verification-key-hash-from-file-${baseNameOf file}" {
           src = builtins.path {
@@ -58,7 +55,7 @@ pkgs.writeShellApplication {
   name = "cardano-devnet";
   runtimeInputs = [
     cardano-node
-    pkgs.gojq
+    pkgs.jq
   ];
   text = ''
     export CARDANO_NODE_SOCKET_PATH=${CARDANO_NODE_SOCKET_PATH}
@@ -75,17 +72,15 @@ pkgs.writeShellApplication {
     cp -af ${CONFIG_DIR}/vrf.skey "${dataDir}"
     cp -af ${CONFIG_DIR}/kes.skey "${dataDir}"
 
-    # shellcheck disable=SC2016
-    gojq '.startTime |= $start_time | .protocolConsts.protocolMagic |= $network_magic' \
+    jq '.startTime |= $start_time | .protocolConsts.protocolMagic |= $network_magic' \
       --argjson start_time "$(date +%s)" \
       --argjson network_magic ${builtins.toString networkMagic} \
       < ${CONFIG_DIR}/genesis-byron.json \
       > "${dataDir}/genesis-byron.json"
 
-    # shellcheck disable=SC2016
-    gojq '.systemStart |= $start_time | .initialFunds |= ($funds | map_values(tonumber)) | .networkMagic |= $network_magic | .networkId |= $network_id | .slotLength |= $slot_length | .epochLength |= $epoch_length | .protocolParams.maxTxSize |= $max_tx_size | .protocolParams.protocolVersion |= $protocol_version' \
+    jq '.systemStart |= $start_time | .initialFunds |= $funds | .networkMagic |= $network_magic | .networkId |= $network_id | .slotLength |= $slot_length | .epochLength |= $epoch_length | .protocolParams.maxTxSize |= $max_tx_size | .protocolParams.protocolVersion |= $protocol_version' \
       --arg start_time "$(date -u +%FT%TZ)" \
-      --argjson funds '${builtins.toJSON initialFundsResolved}' \
+      --argjson funds '${builtins.toJSON initialFunds'}' \
       --argjson network_magic ${builtins.toString networkMagic} \
       --arg network_id ${networkId} \
       --argjson slot_length ${builtins.toString slotLength} \
@@ -95,8 +90,7 @@ pkgs.writeShellApplication {
       < ${CONFIG_DIR}/genesis-shelley.json \
       > "${dataDir}/genesis-shelley.json"
 
-    # shellcheck disable=SC2016
-    gojq '.maxBlockExUnits |= $max_block_ex_units | .maxTxExUnits |= $max_tx_ex_units' \
+    jq '.maxBlockExUnits |= $max_block_ex_units | .maxTxExUnits |= $max_tx_ex_units' \
       --argjson max_block_ex_units '${builtins.toJSON maxBlockExUnits}' \
       --argjson max_tx_ex_units '${builtins.toJSON maxTxExUnits}' \
       < ${CONFIG_DIR}/genesis-alonzo.json \
