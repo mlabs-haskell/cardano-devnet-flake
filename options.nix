@@ -14,11 +14,22 @@
       };
 
       initialFunds = lib.mkOption {
-        type = lib.types.attrsOf lib.types.ints.unsigned;
+        type = lib.types.attrsOf (
+          lib.types.oneOf [
+            lib.types.ints.unsigned
+            lib.types.str
+          ]
+        );
         example = {
           "9783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b" = 900000000000;
         };
-        description = "Wallet public key - lovelace pair, determining the initial funds. Use `initialFundsKeyType` define the key type you're using.";
+        description = ''
+          Wallet public key - lovelace pair, determining the initial funds.
+          Use `initialFundsKeyType` define the key type you're using.
+          Due to Nix integer limitations the integer cannot exceet the upper bound of
+          the signed 64 bit integer type: 9223372036854775807. If you want to use a
+          greater value, you can wrap it in a string instead: "18446744073709551615"
+        '';
       };
 
       networkMagic = lib.mkOption {
