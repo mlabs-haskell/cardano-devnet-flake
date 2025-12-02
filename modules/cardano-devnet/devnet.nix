@@ -3,10 +3,12 @@
   cardano-node,
   cardano-cli,
   dataDir,
+  nodeSocket,
   networkMagic,
   networkId,
   initialFunds,
   initialFundsKeyType,
+  walletDir,
   maxLovelaceSupply,
   epochLength,
   slotLength,
@@ -17,7 +19,6 @@
 }:
 let
   CONFIG_DIR = ./config;
-  CARDANO_NODE_SOCKET_PATH = "${dataDir}/node.socket";
   #
   initialFunds' =
     if initialFundsKeyType == "bech32-binary" then
@@ -41,10 +42,7 @@ let
     pkgs.lib.removeSuffix "\n" (
       builtins.readFile (
         pkgs.runCommand "resolve-verification-key-hash-from-file-${baseNameOf file}" {
-          src = builtins.path {
-            path = ./.;
-            name = "source";
-          };
+          src = walletDir;
           buildInputs = [ cardano-cli ];
         } "cardano-cli address key-hash --payment-verification-key-file $src/${file} > $out"
 
@@ -59,8 +57,6 @@ pkgs.writeShellApplication {
     pkgs.jq
   ];
   text = ''
-    export CARDANO_NODE_SOCKET_PATH=${CARDANO_NODE_SOCKET_PATH}
-
     set -eo pipefail
     set -ex
 
@@ -104,7 +100,7 @@ pkgs.writeShellApplication {
     cardano-node run \
       --topology "${CONFIG_DIR}/topology.json" \
       --database-path "${dataDir}/chain" \
-      --socket-path "${CARDANO_NODE_SOCKET_PATH}" \
+      --socket-path "${nodeSocket}" \
       --port 3001 \
       --config "${dataDir}/config.json" \
       --shelley-kes-key "${dataDir}/kes.skey" \

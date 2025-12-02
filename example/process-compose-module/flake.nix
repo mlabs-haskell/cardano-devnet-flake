@@ -2,8 +2,8 @@
   description = "Using Cardano devnet as process-compose service";
 
   inputs = {
-    cardano-devnet.url = "path:../..";
-    flake-parts.follows = "cardano-devnet/flake-parts";
+    cardano-devnet-flake.url = "path:../..";
+    flake-parts.follows = "cardano-devnet-flake/flake-parts";
 
     process-compose.url = "github:Platonic-Systems/process-compose-flake";
 
@@ -33,21 +33,26 @@
           self',
           inputs',
           system,
+          config,
           ...
         }:
+        let
+          devnetConfig = config.process-compose.process-compose-example.services.cardano-devnet.devnet;
+        in
         {
 
           process-compose.process-compose-example = {
             imports = [
-              inputs.cardano-devnet.processComposeModule
+              inputs.cardano-devnet-flake.processComposeModule
             ];
 
             services.cardano-devnet."devnet" = {
-              inherit (inputs.cardano-node.packages.${system}) cardano-node cardano-cli;
               enable = true;
+              inherit (inputs.cardano-node.packages.${system}) cardano-node cardano-cli;
+              walletDir = ./wallets;
               initialFundsKeyType = "verification-key-file";
               initialFunds = {
-                "example/process-compose-module/wallets/dev.vk" = 45000000000000000;
+                "dev.vk" = 45000000000000000;
               };
               networkMagic = 2;
             };
@@ -56,8 +61,8 @@
               ogmios = {
                 command = ''
                   ${inputs'.ogmios.packages."ogmios:exe:ogmios"}/bin/ogmios \
-                    --node-socket data/cardano-devnet/node.socket \
-                    --node-config data/cardano-devnet/config.json
+                    --node-socket ${devnetConfig.nodeSocket} \
+                    --node-config ${devnetConfig.dataDir}/config.json
                 '';
                 readiness_probe = {
                   http_get = {
@@ -79,5 +84,7 @@
             ];
           };
         };
+
+      debug = true;
     };
 }

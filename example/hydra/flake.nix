@@ -34,100 +34,69 @@
           pkgs,
           self',
           inputs',
-          system,
+          config,
           ...
         }:
+        let
+          devnetConfig = config.process-compose.hydra-example.services.cardano-devnet.devnet;
+          hydraNode1Config = config.process-compose.hydra-example.services.hydra-node.hydra-node-1;
+        in
         {
-
           process-compose.hydra-example = {
             imports = [
               inputs.cardano-devnet.processComposeModule
             ];
 
-            services.cardano-devnet."devnet" = {
-              inherit (inputs.cardano-node.packages.${system}) cardano-node cardano-cli;
-              enable = true;
-              initialFundsKeyType = "verification-key-file";
-              initialFunds = {
-                "example/hydra/wallets/dev-2.vk" = 45000000000000000;
-              };
-              networkMagic = 2;
-            };
-
-            settings.processes = {
-              ogmios = {
-                command = ''
-                  ${inputs'.ogmios.packages."ogmios:exe:ogmios"}/bin/ogmios \
-                    --node-socket data/cardano-devnet/node.socket \
-                    --node-config data/cardano-devnet/config.json
-                '';
-                readiness_probe = {
-                  http_get = {
-                    host = "127.0.0.1";
-                    port = 1337;
-                    path = "/health";
-                  };
-                  initial_delay_seconds = 2;
-                  period_seconds = 2;
+            services = {
+              cardano-devnet."devnet" = {
+                enable = true;
+                inherit (inputs'.cardano-node.packages) cardano-node cardano-cli;
+                walletDir = ./wallets;
+                initialFundsKeyType = "verification-key-file";
+                initialFunds = {
+                  "dev-2.vk" = 45000000000000000;
                 };
-                depends_on.devnet.condition = "process_healthy";
+                networkMagic = 2;
               };
 
-              hydra-publish-script = {
-                command = ''
-                  ${inputs'.hydra.packages.hydra-node}/bin/hydra-node publish-scripts \
-                    --node-socket data/cardano-devnet/node.socket \
-                    --testnet-magic 2  \
-                    --cardano-signing-key wallets/dev-1.sk > data/hydra-scripts-tx-id
-                '';
-                depends_on.devnet.condition = "process_healthy";
-
+              hydra-node."hydra-node-1" = {
+                enable = true;
+                inherit (devnetConfig) nodeSocket networkMagic;
+                devnetName = "devnet";
+                src = ./.;
+                listen = "127.0.0.1:5001";
+                apiPort = 4001;
+                package = inputs'.hydra.packages.hydra-node;
+                cardanoSigningKey = ./wallets/dev-1.sk;
+                hydraSigningKey = ./wallets/hydra-key-1.sk;
+                peers = [
+                  {
+                    port = 5002;
+                    cardanoVerificationKey = ./wallets/dev-2.vk;
+                    hydraVerificationKey = ./wallets/hydra-key-2.vk;
+                  }
+                ];
+                publishScripts = true;
               };
 
-              hydra-node-1 = {
-                command = ''
-                  ${inputs'.hydra.packages.hydra-node}/bin/hydra-node \
-                    --node-id 1 \
-                    --listen 127.0.0.1:5001 \
-                    --api-port 4001 \
-                    --peer 127.0.0.1:5002 \
-                    --persistence-dir data/hydra-1 \
-                    --node-socket data/cardano-devnet/node.socket \
-                    --testnet-magic 2 \
-                    --hydra-signing-key wallets/hydra-key-2.sk \
-                    --hydra-verification-key wallets/hydra-key-1.vk \
-                    --hydra-verification-key wallets/hydra-key-2.vk \
-                    --cardano-signing-key wallets/dev-1.sk \
-                    --cardano-verification-key wallets/dev-1.vk \
-                    --cardano-verification-key wallets/dev-2.vk \
-                    --ledger-protocol-parameters protocol-params.json \
-                    --use-system-etcd \
-                    --hydra-scripts-tx-id $(cat data/hydra-scripts-tx-id)
-                '';
-                depends_on.hydra-publish-script.condition = "process_completed_successfully";
-              };
-
-              hydra-node-2 = {
-                command = ''
-                  ${inputs'.hydra.packages.hydra-node}/bin/hydra-node \
-                    --node-id 2 \
-                    --listen 127.0.0.1:5002 \
-                    --api-port 4002 \
-                    --peer 127.0.0.1:5001 \
-                    --persistence-dir data/hydra-2 \
-                    --node-socket data/cardano-devnet/node.socket \
-                    --testnet-magic 2 \
-                    --hydra-signing-key wallets/hydra-key-2.sk \
-                    --hydra-verification-key wallets/hydra-key-1.vk \
-                    --hydra-verification-key wallets/hydra-key-2.vk \
-                    --cardano-signing-key wallets/dev-2.sk \
-                    --cardano-verification-key wallets/dev-1.vk \
-                    --cardano-verification-key wallets/dev-2.vk \
-                    --ledger-protocol-parameters protocol-params.json \
-                    --use-system-etcd \
-                    --hydra-scripts-tx-id $(cat data/hydra-scripts-tx-id)
-                '';
-                depends_on.hydra-publish-script.condition = "process_completed_successfully";
+              hydra-node."hydra-node-2" = {
+                enable = true;
+                inherit (devnetConfig) nodeSocket networkMagic;
+                devnetName = "devnet";
+                src = ./.;
+                listen = "127.0.0.1:5002";
+                apiPort = 4002;
+                package = inputs'.hydra.packages.hydra-node;
+                cardanoSigningKey = ./wallets/dev-2.sk;
+                hydraSigningKey = ./wallets/hydra-key-2.sk;
+                hydraScriptsTxIdFile = hydraNode1Config.hydraScriptsTxIdFile;
+                peers = [
+                  {
+                    port = 5001;
+                    cardanoVerificationKey = ./wallets/dev-1.vk;
+                    hydraVerificationKey = ./wallets/hydra-key-1.vk;
+                  }
+                ];
               };
             };
           };
@@ -140,6 +109,9 @@
               pkgs.etcd
             ];
           };
+
         };
+
+      debug = true;
     };
 }

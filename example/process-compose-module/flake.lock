@@ -274,7 +274,7 @@
         "type": "github"
       }
     },
-    "cardano-devnet": {
+    "cardano-devnet-flake": {
       "inputs": {
         "flake-parts": "flake-parts",
         "git-hooks-nix": "git-hooks-nix",
@@ -283,7 +283,7 @@
       },
       "locked": {
         "lastModified": 0,
-        "narHash": "sha256-g/+xOUJniKzYSefAFiuGPOSCTQTSzUWSuXw9JMTINFs=",
+        "narHash": "sha256-mw1bRAguaEH33VIkr9ThVvg6AQq8Ios/tXuWsgK8yts=",
         "path": "../..",
         "type": "path"
       },
@@ -628,7 +628,7 @@
     "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
-          "cardano-devnet",
+          "cardano-devnet-flake",
           "hci-effects",
           "nixpkgs"
         ]
@@ -800,7 +800,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
-          "cardano-devnet",
+          "cardano-devnet-flake",
           "git-hooks-nix",
           "nixpkgs"
         ]
@@ -2260,10 +2260,10 @@
     },
     "root": {
       "inputs": {
-        "cardano-devnet": "cardano-devnet",
+        "cardano-devnet-flake": "cardano-devnet-flake",
         "cardano-node": "cardano-node",
         "flake-parts": [
-          "cardano-devnet",
+          "cardano-devnet-flake",
           "flake-parts"
         ],
         "nixpkgs": [
