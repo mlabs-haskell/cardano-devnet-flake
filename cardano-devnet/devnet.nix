@@ -16,7 +16,7 @@
   protocolVersion,
 }:
 let
-  CONFIG_DIR = ./devnet;
+  CONFIG_DIR = ./config;
   CARDANO_NODE_SOCKET_PATH = "${dataDir}/node.socket";
   #
   initialFunds' =

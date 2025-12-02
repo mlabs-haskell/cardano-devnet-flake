@@ -56,11 +56,11 @@ let
   mod =
     { config, name, ... }:
     {
-      options = (import ./options.nix { inherit lib pkgs; }).options.cardano-devnet;
+      options = (import ./cardano-devnet/options.nix { inherit lib pkgs; }).options.cardano-devnet;
 
       config.outputs.settings.processes."${name}" =
         let
-          cardano-devnet = import ./devnet.nix {
+          cardano-devnet = import ./cardano-devnet/devnet.nix {
             inherit pkgs;
             inherit (config)
               dataDir

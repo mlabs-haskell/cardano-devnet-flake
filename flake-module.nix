@@ -16,7 +16,7 @@
       ...
     }:
     let
-      cardano-devnet = import ./devnet.nix {
+      cardano-devnet = import ./cardano-devnet/devnet.nix {
         inherit pkgs;
         inherit (config.cardano-devnet)
           dataDir
