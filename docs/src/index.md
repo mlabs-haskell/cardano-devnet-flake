@@ -74,7 +74,8 @@ After this, we can setup a process-compose. This is where we can import the
 cardano-devnet process compose module, and add the devnet configuration under
 `services.cardano-devnet`.
 
-See the [cardano-devnet options](/cardano-devnet-flake/cardano-devnet/options) and [hydra-node options](/cardano-devnet-flake/hydra-node/options) pages for other
+See the [cardano-devnet options](/cardano-devnet-flake/cardano-devnet/options) and
+[hydra-node options](/cardano-devnet-flake/hydra-node/options) pages for other
 configuration options.
 
 ```nix

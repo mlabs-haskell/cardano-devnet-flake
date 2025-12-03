@@ -6,4 +6,5 @@ See our [website](https://mlabs-haskell.github.io/cardano-devnet-flake) for docu
 
 ![demo](./docs/src/img/demo.gif)
 
-WARNING: flake-module devnet was deprecated, if you still depend on it, please use [v1](https://github.com/mlabs-haskell/cardano-devnet-flake/tree/v1.0.0).
+WARNING: flake-module devnet was deprecated, if you still depend on it, please use
+[v1](https://github.com/mlabs-haskell/cardano-devnet-flake/tree/v1.0.0).
