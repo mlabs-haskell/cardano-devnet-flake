@@ -25,9 +25,7 @@
       ];
 
       flake = {
-        flakeModule = ./flake-module.nix;
         processComposeModule = ./process-compose-module.nix;
       };
-
     };
 }
