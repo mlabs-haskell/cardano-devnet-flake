@@ -6,16 +6,22 @@
   ...
 }:
 {
+  # Import option declarations
   options =
     (import ../modules/cardano-devnet/options.nix { inherit lib pkgs config; }).options.cardano-devnet;
 
+  # Set recursive defaults (settings these directly in options.nix causes issues with document
+  # generation)
+  config = {
+    nodeSocket = lib.mkDefault "${config.dataDir}/node.socket";
+  };
+
+  # Define process-compose configuration
   config.outputs.settings.processes."${name}" =
     let
       cardano-devnet = import ../modules/cardano-devnet/devnet.nix {
         inherit pkgs;
         inherit (config)
-          dataDir
-          nodeSocket
           networkMagic
           networkId
           initialFunds
@@ -30,6 +36,8 @@
           maxBlockExUnits
           maxTxExUnits
           protocolVersion
+          dataDir
+          nodeSocket
           ;
       };
 

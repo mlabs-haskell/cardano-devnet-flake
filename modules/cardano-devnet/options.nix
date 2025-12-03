@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  config,
   ...
 }:
 {
@@ -12,7 +11,7 @@
 
     nodeSocket = lib.mkOption {
       type = lib.types.str;
-      default = "${config.dataDir}/node.socket";
+      defaultText = lib.literalExpression "$\{config.dataDir\}/node.socket";
       description = ''
         Filepath to local unix domain socket.
       '';
@@ -21,7 +20,6 @@
     initialFundsKeyType = lib.mkOption {
       type = lib.types.str;
       default = "verification-key-hash";
-      example = "bech32-binary";
       description = "Flag to define the keys used in `initialFunds` option (bech32-binary | verification-key-file | verification-key-hash)";
     };
 
@@ -34,7 +32,8 @@
     };
 
     walletDir = lib.mkOption {
-      type = lib.types.path;
+      type = lib.types.nullOr lib.types.path;
+      default = null;
       description = "Directory where verification keys are located.";
     };
 
@@ -47,45 +46,36 @@
     networkMagic = lib.mkOption {
       type = lib.types.ints.unsigned;
       default = 42;
-      example = 2;
       description = "Cardano network magic id (also known as testnet magic).";
     };
 
     networkId = lib.mkOption {
       type = lib.types.str;
       default = "Testnet";
-      example = "Mainnet";
       description = "Network discriminant which can be Mainnet or Testnet";
     };
 
     epochLength = lib.mkOption {
       type = lib.types.ints.unsigned;
       default = 5;
-      example = 100;
       description = "Length of an epoch in slots";
     };
 
     slotLength = lib.mkOption {
       type = lib.types.float;
       default = 0.1;
-      example = 1;
       description = "Slot duration in seconds";
     };
 
     maxTxSize = lib.mkOption {
       type = lib.types.ints.unsigned;
       default = 16384;
-      example = 20000;
       description = "Transaction size in bytes";
     };
 
     maxBlockExUnits = lib.mkOption {
       type = lib.types.attrsOf lib.types.ints.unsigned;
       default = {
-        exUnitsMem = 62000000;
-        exUnitsSteps = 40000000000;
-      };
-      example = {
         exUnitsMem = 62000000;
         exUnitsSteps = 40000000000;
       };
@@ -98,10 +88,6 @@
         exUnitsMem = 14000000;
         exUnitsSteps = 10000000000;
       };
-      example = {
-        exUnitsMem = 14000000;
-        exUnitsSteps = 10000000000;
-      };
       description = "Maximum execution budget for a transaction";
     };
 
@@ -111,12 +97,7 @@
         major = 10;
         minor = 0;
       };
-      example = {
-        major = 6;
-        minor = 0;
-      };
       description = "Protocol major and minor version";
     };
-
   };
 }

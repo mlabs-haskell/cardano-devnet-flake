@@ -1,5 +1,5 @@
 {
-  description = "Using Cardano devnet as process-compose service";
+  description = "Simple Cardano devnet stack";
 
   inputs = {
     cardano-devnet-flake.url = "path:../..";
@@ -37,11 +37,11 @@
           ...
         }:
         let
-          devnetConfig = config.process-compose.process-compose-example.services.cardano-devnet.devnet;
+          devnetConfig = config.process-compose.simple-example.services.cardano-devnet.devnet;
         in
         {
 
-          process-compose.process-compose-example = {
+          process-compose.simple-example = {
             imports = [
               inputs.cardano-devnet-flake.processComposeModule
             ];
@@ -80,8 +80,16 @@
 
           devShells.default = pkgs.mkShell {
             nativeBuildInputs = [
-              self'.packages.process-compose-example
+              self'.packages.simple-example
+              pkgs.boxes
             ];
+
+            shellHook = ''
+              boxes -d peek -p h2v1 << EOF
+                Welcome to the cardano-devnet-flake example.
+                Run simple-example to start process-compose services
+              EOF
+            '';
           };
         };
 

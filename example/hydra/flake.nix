@@ -1,5 +1,5 @@
 {
-  description = "Using Cardano devnet as process-compose service";
+  description = "Cardano devnet with a Hydra head";
 
   inputs = {
     cardano-devnet.url = "path:../..";
@@ -82,6 +82,7 @@
               hydra-node."hydra-node-2" = {
                 enable = true;
                 inherit (devnetConfig) nodeSocket networkMagic;
+                inherit (hydraNode1Config) hydraScriptsTxIdFile;
                 devnetName = "devnet";
                 src = ./.;
                 listen = "127.0.0.1:5002";
@@ -89,7 +90,6 @@
                 package = inputs'.hydra.packages.hydra-node;
                 cardanoSigningKey = ./wallets/dev-2.sk;
                 hydraSigningKey = ./wallets/hydra-key-2.sk;
-                hydraScriptsTxIdFile = hydraNode1Config.hydraScriptsTxIdFile;
                 peers = [
                   {
                     port = 5001;
@@ -107,7 +107,14 @@
               inputs'.cardano-node.packages.cardano-cli
               inputs'.hydra.packages.hydra-node
               pkgs.etcd
+              pkgs.boxes
             ];
+            shellHook = ''
+              boxes -d peek -p h2v1 << EOF
+                Welcome to the cardano-devnet-flake example.
+                Run hydra-example to start process-compose services
+              EOF
+            '';
           };
 
         };

@@ -6,19 +6,19 @@
   ...
 }:
 {
+  # Import option declarations
   options =
-    (import ../modules/hydra-node/options.nix { inherit lib pkgs config; }).options.hydra-node
+    (import ../modules/hydra-node/options.nix { inherit lib pkgs config; }).options.hydra-node;
 
-    // {
-      publishScripts = lib.mkOption {
-        type = lib.types.bool;
-        default = false;
-        description = ''
-          Initialise Hydra head by publishing the scripts to the devnet.
-        '';
-      };
-    };
+  # Set recursive defaults (settings these directly in options.nix causes issues with document
+  # generation)
+  config = {
+    walletDir = lib.mkDefault "${config.src}/wallets";
+    ledgerProtocolParameters = lib.mkDefault "${config.src}/protocol-params.json";
+    hydraScriptsTxIdFile = lib.mkDefault "${config.dataDir}/hydra-scripts-tx-id";
+  };
 
+  # Define process-compose configuration
   config.outputs.settings.processes = {
     "${name}" =
       let
@@ -73,7 +73,7 @@
             hydra-node publish-scripts \
               --node-socket ${config.nodeSocket} \
               --testnet-magic 2  \
-              --cardano-signing-key ${config.cardanoSigningKey} > ${config.hydraScriptsTxIdFile}
+              --cardano-signing-key ${config.cardanoSigningKey} | tee ${config.hydraScriptsTxIdFile}
           '';
         };
       in

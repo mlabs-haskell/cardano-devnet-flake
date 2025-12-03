@@ -103,10 +103,8 @@ let
     };
 in
 {
-  imports = (
-    builtins.map multiService [
-      ./process-compose/cardano-devnet.nix
-      ./process-compose/hydra-node.nix
-    ]
-  );
+  imports = builtins.map multiService [
+    ./process-compose/cardano-devnet.nix
+    ./process-compose/hydra-node.nix
+  ];
 }

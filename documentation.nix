@@ -20,8 +20,10 @@ _: {
             src = ./docs;
             nativeBuildInputs = [ pkgs.mkdocs ];
             buildPhase = ''
+              mkdir src/cardano-devnet
+              mkdir src/hydra-node
               cat ${cardanoDevnetOpts.optionsCommonMark} >> "./src/cardano-devnet/options.md"
-              cat ${hydraNodeOpts.optionsCommonMark} >> "./src/cardano-devnet/options.md"
+              cat ${hydraNodeOpts.optionsCommonMark} >> "./src/hydra-node/options.md"
               mkdocs build
             '';
 
