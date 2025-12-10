@@ -15,7 +15,7 @@
   config = {
     walletDir = lib.mkDefault "${config.src}/wallets";
     ledgerProtocolParameters = lib.mkDefault "${config.src}/protocol-params.json";
-    hydraScriptsTxIdFile = lib.mkDefault "${config.dataDir}/hydra-scripts-tx-id";
+    nodeId = lib.mkDefault name;
   };
 
   # Define process-compose configuration
@@ -70,7 +70,7 @@
             pkgs.etcd
           ];
           text = ''
-            mkdir -p $(dirname {config.hydraScriptsTxIdFile})
+            mkdir -p "$(dirname ${config.hydraScriptsTxIdFile})"
 
             hydra-node publish-scripts \
               --node-socket ${config.nodeSocket} \

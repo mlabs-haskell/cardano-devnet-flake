@@ -28,8 +28,13 @@ pkgs.writeShellApplication {
     pkgs.etcd
   ];
   text = ''
+    set -eo pipefail
+    set -ex
+
+    [ -d "${dataDir}" ] && { echo "Cleaning up directory ${dataDir}" ; rm -rf "${dataDir}" ; }
+
     hydra-node \
-      --node-id ${builtins.toString nodeId} \
+      --node-id ${nodeId} \
       --listen ${listen} \
       --api-port ${builtins.toString apiPort} \
       ${

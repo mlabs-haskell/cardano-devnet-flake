@@ -17,12 +17,13 @@
     };
 
     nodeId = lib.mkOption {
-      type = lib.types.int;
-      example = 1;
+      type = lib.types.str;
+      defaultText = ''$\{name\}'';
       description = ''
         The Hydra node identifier used on the Hydra network.
         It is important to have a unique identifier in order
         to be able to distinguish between connected peers.
+        Defaults to the process-compose name of the node.
       '';
     };
 
@@ -145,7 +146,7 @@
 
     hydraScriptsTxIdFile = lib.mkOption {
       type = lib.types.str;
-      defaultText = lib.literalExpression "$\{config.dataDir\}/hydra-scripts-tx-id";
+      default = "data/hydra-scripts/tx-id";
       description = ''
         The transactions which are expected to have published Hydra scripts as reference scripts
         in their outputs. 
