@@ -627,8 +627,8 @@
         "updateToConstitution": 0.75
     },
     "executionUnitPrices": {
-        "priceMemory": 5.77e-2,
-        "priceSteps": 7.21e-5
+        "priceMemory": 0,
+        "priceSteps": 0
     },
     "govActionDeposit": 100000000000,
     "govActionLifetime": 30,
@@ -665,7 +665,7 @@
     "stakePoolDeposit": 0,
     "stakePoolTargetNum": 100,
     "treasuryCut": 0.1,
-    "txFeeFixed": 155381,
-    "txFeePerByte": 44,
+    "txFeeFixed": 0,
+    "txFeePerByte": 0,
     "utxoCostPerByte": 4310
 }

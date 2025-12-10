@@ -18,7 +18,7 @@
 
     nodeId = lib.mkOption {
       type = lib.types.int;
-      default = 1;
+      example = 1;
       description = ''
         The Hydra node identifier used on the Hydra network.
         It is important to have a unique identifier in order
