@@ -53,6 +53,7 @@
                 walletDir = ./wallets;
                 initialFundsKeyType = "verification-key-file";
                 initialFunds = {
+                  "cardano-key-1.vk" = 45000000000000000;
                   "cardano-key-2.vk" = 45000000000000000;
                 };
                 networkMagic = 2;
@@ -64,7 +65,6 @@
                 devnetName = "devnet";
                 src = ./.;
                 listen = "127.0.0.1:5001";
-                nodeId = 1;
                 apiPort = 4001;
                 package = inputs'.hydra.packages.hydra-node;
                 cardanoSigningKey = ./wallets/cardano-key-1.sk;
@@ -82,11 +82,9 @@
               hydra-node."hydra-node-2" = {
                 enable = true;
                 inherit (config'.services.cardano-devnet."devnet") nodeSocket networkMagic;
-                inherit (config'.services.hydra-node."hydra-node-1") hydraScriptsTxIdFile;
                 devnetName = "devnet";
                 src = ./.;
                 listen = "127.0.0.1:5002";
-                nodeId = 2;
                 apiPort = 4002;
                 package = inputs'.hydra.packages.hydra-node;
                 cardanoSigningKey = ./wallets/cardano-key-2.sk;
@@ -106,6 +104,7 @@
             nativeBuildInputs = [
               self'.packages.hydra-example
               inputs'.cardano-node.packages.cardano-cli
+              inputs'.cardano-node.packages.cardano-node
               inputs'.hydra.packages.hydra-node
               pkgs.etcd
               pkgs.boxes
