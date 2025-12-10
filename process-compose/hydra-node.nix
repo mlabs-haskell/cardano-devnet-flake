@@ -70,6 +70,8 @@
             pkgs.etcd
           ];
           text = ''
+            mkdir -p $(dirname {config.hydraScriptsTxIdFile})
+
             hydra-node publish-scripts \
               --node-socket ${config.nodeSocket} \
               --testnet-magic 2  \
