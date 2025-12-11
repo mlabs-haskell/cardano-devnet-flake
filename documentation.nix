@@ -9,15 +9,21 @@ _: {
       packages = {
         documentation =
           let
-            eval = lib.evalModules { modules = [ ./options.nix ]; };
-            opts = pkgs.nixosOptionsDoc { options = eval.options.cardano-devnet; };
+            evalCardanoDevnet = lib.evalModules { modules = [ ./modules/cardano-devnet/options.nix ]; };
+            cardanoDevnetOpts = pkgs.nixosOptionsDoc { options = evalCardanoDevnet.options.cardano-devnet; };
+
+            evalHydraNode = lib.evalModules { modules = [ ./modules/hydra-node/options.nix ]; };
+            hydraNodeOpts = pkgs.nixosOptionsDoc { options = evalHydraNode.options.hydra-node; };
           in
           pkgs.stdenv.mkDerivation {
             name = "docs";
             src = ./docs;
             nativeBuildInputs = [ pkgs.mkdocs ];
             buildPhase = ''
-              cat ${opts.optionsCommonMark} >> "./src/options.md"
+              mkdir src/cardano-devnet
+              mkdir src/hydra-node
+              cat ${cardanoDevnetOpts.optionsCommonMark} >> "./src/cardano-devnet/options.md"
+              cat ${hydraNodeOpts.optionsCommonMark} >> "./src/hydra-node/options.md"
               mkdocs build
             '';
 
