@@ -57,6 +57,7 @@
                   "cardano-key-2.vk" = 45000000000000000;
                 };
                 networkMagic = 2;
+                maxLovelaceSupply = 90000000000000000;
               };
 
               hydra-node."hydra-node-1" = {
