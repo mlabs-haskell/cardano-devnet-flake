@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://mlabs-haskell.github.io/cardano-devnet-flake/hydra-node/options/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Options - Cardano Devnet</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Cardano Devnet</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Cardano Devnet</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../process-compose/" class="nav-link">Process-compose module</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Cardano devnet</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../cardano-devnet/options/" class="dropdown-item">Options</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Hydra node</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Options</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../../cardano-devnet/options/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodepackage" class="nav-link">hydra-node.package</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodeapiport" class="nav-link">hydra-node.apiPort</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodecardanosigningkey" class="nav-link">hydra-node.cardanoSigningKey</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodedevnetname" class="nav-link">hydra-node.devnetName</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodehydrascriptstxid" class="nav-link">hydra-node.hydraScriptsTxId</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodehydrascriptstxidfile" class="nav-link">hydra-node.hydraScriptsTxIdFile</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodehydrasigningkey" class="nav-link">hydra-node.hydraSigningKey</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodeledgerprotocolparameters" class="nav-link">hydra-node.ledgerProtocolParameters</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodelisten" class="nav-link">hydra-node.listen</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodenetworkmagic" class="nav-link">hydra-node.networkMagic</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodenodeid" class="nav-link">hydra-node.nodeId</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodenodesocket" class="nav-link">hydra-node.nodeSocket</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodepeers" class="nav-link">hydra-node.peers</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodepeerscardanoverificationkey" class="nav-link">hydra-node.peers.*.cardanoVerificationKey</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodepeershydraverificationkey" class="nav-link">hydra-node.peers.*.hydraVerificationKey</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodepeersport" class="nav-link">hydra-node.peers.*.port</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodepublishscripts" class="nav-link">hydra-node.publishScripts</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodesrc" class="nav-link">hydra-node.src</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#hydra-nodewalletdir" class="nav-link">hydra-node.walletDir</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="hydra-nodepackage">hydra-node.package</h2>
+<p>The hydra-node package to use.</p>
+<p><em>Type:</em>
+package</p>
+<p><em>Default:</em>
+<code>pkgs.hydra-node</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodeapiport">hydra-node.apiPort</h2>
+<p>Listen port for incoming client API connections.</p>
+<p><em>Type:</em>
+16 bit unsigned integer; between 0 and 65535 (both inclusive)</p>
+<p><em>Default:</em>
+<code>4001</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodecardanosigningkey">hydra-node.cardanoSigningKey</h2>
+<p>Cardano signing key of our hydra-node. This will be used to authorize Hydra protocol
+transactions for heads the node takes part in and any funds owned by this key will be used
+as ‘fuel’.</p>
+<p><em>Type:</em>
+absolute path</p>
+<p><em>Example:</em>
+<code>./wallets/dev-1.sk</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodedevnetname">hydra-node.devnetName</h2>
+<p>Name of the devnet this Hydra node is connecting to. This is required to
+configure dependencies between processes in process-compose.</p>
+<p><em>Type:</em>
+string</p>
+<p><em>Default:</em>
+<code>"cardano-devnet"</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodehydrascriptstxid">hydra-node.hydraScriptsTxId</h2>
+<p>The transactions which are expected to have published Hydra scripts as reference scripts
+in their outputs. You can use the ‘publish-scripts’ sub-command to publish scripts
+yourself.</p>
+<p><em>Type:</em>
+null or string</p>
+<p><em>Default:</em>
+<code>null</code></p>
+<p><em>Example:</em>
+<code>"f8161e0e4d80774277616d627582fdb622920973f39d2c6488324af98ef75269,9111793e561b8f689cfe8541ef1adefa4893171983cde9fe431e7d12451113e8,b1cc50e1f591ba5d6a6a1f2d6befe9b7951735b75dee35a0e4f5def87d984f75"</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodehydrascriptstxidfile">hydra-node.hydraScriptsTxIdFile</h2>
+<p>The transactions which are expected to have published Hydra scripts as reference scripts
+in their outputs.</p>
+<p><em>Type:</em>
+string</p>
+<p><em>Default:</em>
+<code>"data/hydra-scripts/tx-id"</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodehydrasigningkey">hydra-node.hydraSigningKey</h2>
+<p>Hydra signing key used by our hydra-node.</p>
+<p><em>Type:</em>
+absolute path</p>
+<p><em>Example:</em>
+<code>./wallets/hydra-key-2.sk</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodeledgerprotocolparameters">hydra-node.ledgerProtocolParameters</h2>
+<p>Path to protocol parameters used in the Hydra Head. See Hydra manual how to
+configure this.</p>
+<p><em>Type:</em>
+absolute path</p>
+<p><em>Default:</em>
+<code>${config.src}/protocol-params.json</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodelisten">hydra-node.listen</h2>
+<p>Address and port to listen for Hydra network connections.</p>
+<p><em>Type:</em>
+string</p>
+<p><em>Default:</em>
+<code>"127.0.0.1:5001"</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodenetworkmagic">hydra-node.networkMagic</h2>
+<p>Network identifier for a testnet to connect to. We only need to provide the magic number
+here. For example: ‘2’ is the ‘preview’ network. See
+https://book.world.dev.cardano.org/environments.html</p>
+<p><em>Type:</em>
+signed integer</p>
+<p><em>Default:</em>
+<code>24</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodenodeid">hydra-node.nodeId</h2>
+<p>The Hydra node identifier used on the Hydra network.
+It is important to have a unique identifier in order
+to be able to distinguish between connected peers.
+Defaults to the process-compose name of the node.</p>
+<p><em>Type:</em>
+string</p>
+<p><em>Default:</em>
+<code>"$\\{name\\}"</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodenodesocket">hydra-node.nodeSocket</h2>
+<p>Filepath to local unix domain socket used to communicate with the cardano node.</p>
+<p><em>Type:</em>
+string</p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodepeers">hydra-node.peers</h2>
+<p>Peer addresses and keys. Each list item contains a port, a cardano-verification-key and a
+hydra-verification-key (current maximum limit is 7 peers).</p>
+<p><em>Type:</em>
+list of (submodule)</p>
+<p><em>Default:</em>
+<code>[ ]</code></p>
+<p><em>Example:</em></p>
+<pre><code>[
+  {
+    port = 5002;
+    cardanoVerificationKey = ./wallets/dev-1.vk;
+    hydraVerificationKey = ./wallets/hydra-key-1.vk;
+  }
+]
+
+</code></pre>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodepeerscardanoverificationkey">hydra-node.peers.*.cardanoVerificationKey</h2>
+<p>Cardano verification key file path.</p>
+<p><em>Type:</em>
+absolute path</p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodepeershydraverificationkey">hydra-node.peers.*.hydraVerificationKey</h2>
+<p>Hydra verification key file path.</p>
+<p><em>Type:</em>
+absolute path</p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodepeersport">hydra-node.peers.*.port</h2>
+<p>Localhost port of the peer node.</p>
+<p><em>Type:</em>
+16 bit unsigned integer; between 0 and 65535 (both inclusive)</p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodepublishscripts">hydra-node.publishScripts</h2>
+<p>Initialise Hydra head by publishing the scripts to the devnet and storing the result to a
+file defined by hydraScriptTxdFile.</p>
+<p><em>Type:</em>
+boolean</p>
+<p><em>Default:</em>
+<code>false</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodesrc">hydra-node.src</h2>
+<p>Directory where verification keys are located.</p>
+<p><em>Type:</em>
+absolute path</p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p>
+<h2 id="hydra-nodewalletdir">hydra-node.walletDir</h2>
+<p>Directory where verification keys are located.</p>
+<p><em>Type:</em>
+absolute path</p>
+<p><em>Default:</em>
+<code>${config.src}/wallets</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/hydra-node/options.nix</a></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

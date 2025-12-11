@@ -38,13 +38,25 @@
                                 <a href=".." class="nav-link">Cardano Devnet</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../flake-parts/" class="nav-link">Flake parts module</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../options/" class="nav-link">Options</a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="./" class="nav-link active" aria-current="page">Process-compose module</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Cardano devnet</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../cardano-devnet/options/" class="dropdown-item">Options</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Hydra node</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../hydra-node/options/" class="dropdown-item">Options</a>
+</li>
+                                </ul>
                             </li>
                         </ul>
 
@@ -55,12 +67,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../options/" class="nav-link">
+                                <a rel="prev" href=".." class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" class="nav-link disabled">
+                                <a rel="next" href="../cardano-devnet/options/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -133,8 +145,9 @@ process-compose flake module. See the
 <p>After this, we can setup a process-compose. This is where we can import the
 cardano-devnet process compose module, and add the devnet configuration under
 <code>services.cardano-devnet</code>.</p>
-<p>See the <a href="/cardano-devnet-flake/options">cardano-devnet options</a> page for other
-configuration options.</p>
+<p>See the <a href="/cardano-devnet-flake/cardano-devnet/options">cardano-devnet options</a> and
+<a href="/cardano-devnet-flake/hydra-node/options">hydra-node options</a> pages for other configuration
+options.</p>
 <pre><code class="language-nix">process-compose.&quot;process-compose-example&quot; = {
   imports = [
     inputs.cardano-devnet.processComposeModule
@@ -156,7 +169,7 @@ configuration options.</p>
   ];
 };
 </code></pre>
-<p>See an example setup at <a href="https://github.com/mlabs-haskell/cardano-devnet-flake/blob/main/example/process-compose-module/flake.nix">./example/process-compose-module/flake.nix</a>.</p></div>
+<p>See an example setup at <a href="https://github.com/mlabs-haskell/cardano-devnet-flake/blob/main/example/simple/flake.nix">./example/simple/flake.nix</a>.</p></div>
             </div>
         </div>
 

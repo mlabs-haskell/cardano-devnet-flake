@@ -38,13 +38,25 @@
                                 <a href="." class="nav-link active" aria-current="page">Cardano Devnet</a>
                             </li>
                             <li class="nav-item">
-                                <a href="flake-parts/" class="nav-link">Flake parts module</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="options/" class="nav-link">Options</a>
-                            </li>
-                            <li class="nav-item">
                                 <a href="process-compose/" class="nav-link">Process-compose module</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Cardano devnet</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="cardano-devnet/options/" class="dropdown-item">Options</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Hydra node</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="hydra-node/options/" class="dropdown-item">Options</a>
+</li>
+                                </ul>
                             </li>
                         </ul>
 
@@ -60,7 +72,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="flake-parts/" class="nav-link">
+                                <a rel="next" href="process-compose/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -117,15 +129,68 @@ testnet locally, and submit transactions to it just as any other testnet.</p>
   there as well)</li>
 </ul>
 <h2 id="how-to-use">How to use</h2>
-<p>This repository provides two ways to setup a cardano dev network, either as a
-flake-parts module, or a process-compose module. The former is simpler, which
-might be just enough for your use case, but I would recommend using the
-process-compose module, which allows you to configure a full development
-environment, similar to docker-compose.</p>
-<ul>
-<li><a href="./flake-parts">Flake parts module</a></li>
-<li><a href="./process-compose">Process-compose module</a></li>
-</ul></div>
+<p><a href="https://f1bonacc1.github.io/process-compose/">Process-compose</a> is a utility to
+orchestrate multiple processes, similarly to the way docker-compose does this
+with docker containers. Process-compose handles configuring health checks,
+dependencies between processes, retries, etc.</p>
+<p><a href="https://community.flake.arts/process-compose-flake">Process-compose-flake</a>
+wraps the above utiliy to integrate it with Nix, using flake-parts.</p>
+<p>This process-compose module was built based on
+<a href="https://github.com/juspay/services-flake/tree/main/nix/services">services-flake</a>,
+following the same conventions where possible. Cardano devnet is compatible with
+services-flake, you can use mix services from both in one configuration.</p>
+<h3 id="setup">Setup</h3>
+<p>In your <code>flake.nix</code>, you will have to include the following inputs:</p>
+<pre><code class="language-nix">inputs = {
+  cardano-devnet.url = &quot;github:mlabs-haskell/cardano-devnet-flake&quot;;
+  flake-parts.follows = &quot;cardano-devnet/flake-parts&quot;;
+
+  # We will need to include process-compose-flake
+  process-compose.url = &quot;github:Platonic-Systems/process-compose-flake&quot;;
+
+  # Use the cardano-node required by your project
+  cardano-node.url = &quot;github:IntersectMBO/cardano-node/10.1.4&quot;;
+  # Use any nixpkgs version (following cardano-node will reduce dependencies)
+  nixpkgs.follows = &quot;cardano-node/nixpkgs&quot;;
+};
+</code></pre>
+<p>Then, we will need to make a flake with <code>flake-parts</code> and import the
+process-compose flake module. See the
+<a href="https://flake.parts">flake-parts documentation</a> for other configuration options.</p>
+<pre><code class="language-nix">flake-parts.lib.mkFlake { inherit inputs; } {
+  imports = [
+    inputs.process-compose.flakeModule
+  ];
+}
+</code></pre>
+<p>After this, we can setup a process-compose. This is where we can import the
+cardano-devnet process compose module, and add the devnet configuration under
+<code>services.cardano-devnet</code>.</p>
+<p>See the <a href="/cardano-devnet-flake/cardano-devnet/options">cardano-devnet options</a> and
+<a href="/cardano-devnet-flake/hydra-node/options">hydra-node options</a> pages for other
+configuration options.</p>
+<pre><code class="language-nix">process-compose.&quot;process-compose-example&quot; = {
+  imports = [
+    inputs.cardano-devnet.processComposeModule
+  ];
+
+  services.cardano-devnet.&quot;devnet&quot; = {
+    inherit (inputs.cardano-node.packages.${system}) cardano-node cardano-cli;
+    enable = true;
+    initialFunds = {
+      &quot;9783be7d3c54f11377966dfabc9284cd6c32fca1cd42ef0a4f1cc45b&quot; = 900000000000;
+    };
+  };
+};
+</code></pre>
+<p>Now we can add the process-compose executable to our devShell:</p>
+<pre><code class="language-nix">devShells.default = pkgs.mkShell {
+  nativeBuildInputs = [
+    self'.packages.&quot;process-compose-example&quot;
+  ];
+};
+</code></pre>
+<p>See an example setup at <a href="https://github.com/mlabs-haskell/cardano-devnet-flake/blob/main/example/cardano-stack/flake.nix">./example/cardano-stack/flake.nix</a>.</p></div>
             </div>
         </div>
 

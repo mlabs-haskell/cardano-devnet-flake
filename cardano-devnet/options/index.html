@@ -6,15 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://mlabs-haskell.github.io/cardano-devnet-flake/options/">
-        <link rel="shortcut icon" href="../img/favicon.ico">
+        <link rel="canonical" href="https://mlabs-haskell.github.io/cardano-devnet-flake/cardano-devnet/options/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Options - Cardano Devnet</title>
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/fontawesome.min.css" rel="stylesheet">
-        <link href="../css/brands.min.css" rel="stylesheet">
-        <link href="../css/solid.min.css" rel="stylesheet">
-        <link href="../css/v4-font-face.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
@@ -24,7 +24,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="..">Cardano Devnet</a>
+                <a class="navbar-brand" href="../..">Cardano Devnet</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -35,16 +35,28 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li class="nav-item">
-                                <a href=".." class="nav-link">Cardano Devnet</a>
+                                <a href="../.." class="nav-link">Cardano Devnet</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../flake-parts/" class="nav-link">Flake parts module</a>
+                                <a href="../../process-compose/" class="nav-link">Process-compose module</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="./" class="nav-link active" aria-current="page">Options</a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Cardano devnet</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Options</a>
+</li>
+                                </ul>
                             </li>
-                            <li class="nav-item">
-                                <a href="../process-compose/" class="nav-link">Process-compose module</a>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Hydra node</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../hydra-node/options/" class="dropdown-item">Options</a>
+</li>
+                                </ul>
                             </li>
                         </ul>
 
@@ -55,12 +67,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../flake-parts/" class="nav-link">
+                                <a rel="prev" href="../../process-compose/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../process-compose/" class="nav-link">
+                                <a rel="next" href="../../hydra-node/options/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -88,11 +100,6 @@
             </li>
             
             <li class="nav-item" data-bs-level="2"><a href="#cardano-devnetcardano-node" class="nav-link">cardano-devnet.cardano-node</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="2"><a href="#cardano-devnetdatadir" class="nav-link">cardano-devnet.dataDir</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -142,12 +149,22 @@
               </ul>
             </li>
             
+            <li class="nav-item" data-bs-level="2"><a href="#cardano-devnetnodesocket" class="nav-link">cardano-devnet.nodeSocket</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
             <li class="nav-item" data-bs-level="2"><a href="#cardano-devnetprotocolversion" class="nav-link">cardano-devnet.protocolVersion</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             
             <li class="nav-item" data-bs-level="2"><a href="#cardano-devnetslotlength" class="nav-link">cardano-devnet.slotLength</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-bs-level="2"><a href="#cardano-devnetwalletdir" class="nav-link">cardano-devnet.walletDir</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -163,7 +180,7 @@ package</p>
 <p><em>Default:</em>
 <code>pkgs.cardano-cli</code></p>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetcardano-node">cardano-devnet.cardano-node</h2>
 <p>The cardano-node package to use.</p>
 <p><em>Type:</em>
@@ -171,25 +188,15 @@ package</p>
 <p><em>Default:</em>
 <code>pkgs.cardano-node</code></p>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
-<h2 id="cardano-devnetdatadir">cardano-devnet.dataDir</h2>
-<p>The directory where all data for <code>cardano-devnet.&lt;name&gt;</code> is stored</p>
-<p><em>Type:</em>
-string</p>
-<p><em>Default:</em>
-<code>"./data/cardano-devnet"</code></p>
-<p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetepochlength">cardano-devnet.epochLength</h2>
 <p>Length of an epoch in slots</p>
 <p><em>Type:</em>
 unsigned integer, meaning &gt;=0</p>
 <p><em>Default:</em>
 <code>5</code></p>
-<p><em>Example:</em>
-<code>100</code></p>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetinitialfunds">cardano-devnet.initialFunds</h2>
 <p>Wallet public key - lovelace pair, determining the initial funds. Use <code>initialFundsKeyType</code> define the key type you’re using and maxLovelaceSupply to increase the distributeable amount if needed.</p>
 <p><em>Type:</em>
@@ -200,17 +207,15 @@ attribute set of (unsigned integer, meaning &gt;=0)</p>
 }
 </code></pre>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetinitialfundskeytype">cardano-devnet.initialFundsKeyType</h2>
 <p>Flag to define the keys used in <code>initialFunds</code> option (bech32-binary | verification-key-file | verification-key-hash)</p>
 <p><em>Type:</em>
 string</p>
 <p><em>Default:</em>
 <code>"verification-key-hash"</code></p>
-<p><em>Example:</em>
-<code>"bech32-binary"</code></p>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetmaxblockexunits">cardano-devnet.maxBlockExUnits</h2>
 <p>Maximum execution budget for a block</p>
 <p><em>Type:</em>
@@ -221,14 +226,8 @@ attribute set of (unsigned integer, meaning &gt;=0)</p>
   exUnitsSteps = 40000000000;
 }
 </code></pre>
-<p><em>Example:</em></p>
-<pre><code>{
-  exUnitsMem = 62000000;
-  exUnitsSteps = 40000000000;
-}
-</code></pre>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetmaxlovelacesupply">cardano-devnet.maxLovelaceSupply</h2>
 <p>Maximum lovelace amount that can ever exist on the network.</p>
 <p><em>Type:</em>
@@ -236,7 +235,7 @@ unsigned integer, meaning &gt;=0</p>
 <p><em>Default:</em>
 <code>45000000000000000</code></p>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetmaxtxexunits">cardano-devnet.maxTxExUnits</h2>
 <p>Maximum execution budget for a transaction</p>
 <p><em>Type:</em>
@@ -247,44 +246,40 @@ attribute set of (unsigned integer, meaning &gt;=0)</p>
   exUnitsSteps = 10000000000;
 }
 </code></pre>
-<p><em>Example:</em></p>
-<pre><code>{
-  exUnitsMem = 14000000;
-  exUnitsSteps = 10000000000;
-}
-</code></pre>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetmaxtxsize">cardano-devnet.maxTxSize</h2>
 <p>Transaction size in bytes</p>
 <p><em>Type:</em>
 unsigned integer, meaning &gt;=0</p>
 <p><em>Default:</em>
 <code>16384</code></p>
-<p><em>Example:</em>
-<code>20000</code></p>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetnetworkid">cardano-devnet.networkId</h2>
 <p>Network discriminant which can be Mainnet or Testnet</p>
 <p><em>Type:</em>
 string</p>
 <p><em>Default:</em>
 <code>"Testnet"</code></p>
-<p><em>Example:</em>
-<code>"Mainnet"</code></p>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetnetworkmagic">cardano-devnet.networkMagic</h2>
 <p>Cardano network magic id (also known as testnet magic).</p>
 <p><em>Type:</em>
 unsigned integer, meaning &gt;=0</p>
 <p><em>Default:</em>
 <code>42</code></p>
-<p><em>Example:</em>
-<code>2</code></p>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
+<h2 id="cardano-devnetnodesocket">cardano-devnet.nodeSocket</h2>
+<p>Filepath to local unix domain socket.</p>
+<p><em>Type:</em>
+string</p>
+<p><em>Default:</em>
+<code>${config.dataDir}/node.socket</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetprotocolversion">cardano-devnet.protocolVersion</h2>
 <p>Protocol major and minor version</p>
 <p><em>Type:</em>
@@ -295,24 +290,24 @@ attribute set of (unsigned integer, meaning &gt;=0)</p>
   minor = 0;
 }
 </code></pre>
-<p><em>Example:</em></p>
-<pre><code>{
-  major = 6;
-  minor = 0;
-}
-</code></pre>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
 <h2 id="cardano-devnetslotlength">cardano-devnet.slotLength</h2>
 <p>Slot duration in seconds</p>
 <p><em>Type:</em>
 floating point number</p>
 <p><em>Default:</em>
 <code>0.1</code></p>
-<p><em>Example:</em>
-<code>1</code></p>
 <p><em>Declared by:</em>
- - <a href="file:///nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix">/nix/store/1n0ikgh39mq7a0z1n9m110sh7mi5kmkz-source/options.nix</a></p></div>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p>
+<h2 id="cardano-devnetwalletdir">cardano-devnet.walletDir</h2>
+<p>Directory where verification keys are located.</p>
+<p><em>Type:</em>
+null or absolute path</p>
+<p><em>Default:</em>
+<code>null</code></p>
+<p><em>Declared by:</em>
+ - <a href="file:///nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix">/nix/store/dya29fp77h7xzvn6ggxpgkxdiaw6pihy-source/modules/cardano-devnet/options.nix</a></p></div>
             </div>
         </div>
 
@@ -320,13 +315,13 @@ floating point number</p>
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="../js/bootstrap.bundle.min.js"></script>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
-            var base_url = "..",
+            var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js"></script>
-        <script src="../search/main.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
